@@ -1,27 +1,30 @@
 {
-  "name": "elapse",
-  "version": "1.0.0",
-  "description": "command-line progress bar",
-  "main": "elapse.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/surprisetalk/elapse.git"
-  },
-  "keywords": [
-    "command",
-    "line",
-    "progress",
-    "bar",
-    "cli",
-    "elapse"
-  ],
-  "author": "Taylor Sarrafian",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/surprisetalk/elapse/issues"
-  },
-  "homepage": "https://github.com/surprisetalk/elapse#readme"
+    "name": "elapse",
+    "version": "1.0.0",
+    "description": "command-line progress bar",
+    "main": "elapse.js",
+    "scripts": {
+	"test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+	"type": "git",
+	"url": "git+https://github.com/surprisetalk/elapse.git"
+    },
+    "keywords": [
+	"command",
+	"line",
+	"progress",
+	"bar",
+	"cli",
+	"elapse"
+    ],
+    "author": "Taylor Sarrafian",
+    "license": "ISC",
+    "bugs": {
+	"url": "https://github.com/surprisetalk/elapse/issues"
+    },
+    "homepage": "https://github.com/surprisetalk/elapse#readme",
+    "dependencies": {
+	"underscore": ">=1.8.3"
+    }
 }

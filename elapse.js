@@ -1,120 +1,99 @@
 
 module.exports = Elapse;
 
-//var _ = require('underscore');
+var _ = require('underscore');
 
-// todo space => pause
-// todo enter => stream.moveCursor( 0, -1 )
-// todo keep functions under 10 lines
+// ( {} | { format: string, stream: stream, width: int, car_char: string, road_char: string, clear: bool, callback: function, refresh_rate: int } ) -> { format: string, stream: stream, width: int, car_char: string, road_char: string, clear: bool, callback: function, refresh_rate: int } 
+function settings( options )
+{
+    var stream = _.has( options, "stream" ) ? options.stream : process.stderr;
+    return _.defaults(
+	_.isUndefined( options ) ? {} : options,
+	{
+	    format: " #bar #eta ",
+	    stream: stream,
+	    width: stream.columns,
+	    car_char: "|",
+	    road_char: "⋅",
+	    trail: false,
+	    clear: false,
+	    callback: function() {},
+	    refresh_rate: 100
+	}
+    );
+}
 
-// int, obj -> Date
+// int, obj -> 
 function Elapse( duration, options )
 {
-    var stream = process.stderr;
-    stream.write( "\n" );
-    
-    // todo underscore defaults
-    var app = {
-	format: ":bar",
-	width: stream.columns,
-	height: 5,
-	progress_char: "|",
-	waiting_char: "⋅",
-	clear: true,
-	callback: function() {},
-	refresh_rate: 100
-    };
-
-    var line = line_gen( stream, app.format, app.width, app.progress_char, app.waiting_char );
-
-    var start = new Date();
-    var end = new Date();
+    // set the start and end times
+    var start = new Date(); var end = new Date();
     end.setSeconds( start.getSeconds() + duration );
 
+    // parse default settings
+    var app = settings( options );
+    app.stream.write( "\n" );
+
+    // line() creates our line of text
+    var line = line_gen( app.stream, app.format, app.width, app.car_char, app.road_char, app.trail );
+
+    // run the update function every n milliseconds
     var ticker = setInterval( update, 1000 / app.refresh_rate  );
     function update()
     {
-	if( !render( stream, line( start, end ), app.height ) )
+	if( !render( app.stream, line( start, end ) ) )
 	{
 	    clearInterval( ticker );
 	    if( app.clear ) 
-	    {
-		stream.moveCursor( 0, -1 );
-		stream.clearScreenDown( 0 );
-
-	    } else {
-
-		stream.write('\n');
-	    }
+		app.stream.moveCursor( 0, -1 ) || app.stream.clearScreenDown( 0 );
+	    else
+		app.stream.write('\n\n');
+	    app.callback();
 	}
-    }
-
-    return end;
+    };
 }
-
-// todo elapsed and eta have copied code
 
 // Date, bool -> string
-function elapsed( start, format )
+function format_time( time, format )
 {
     pad = function( n ) { return ( n < 10 ) ? ( "0" + n ) : n; }
-    var date = new Date( Date.now() - start  );
+    var date = new Date( time  );
     var m = date.getMinutes();
     var s = date.getSeconds();
-    return ( m && ( typeof format === "undefined" || format ) ) ? m + ":" + pad( s ) : (date/1000).toFixed(1);
-}
-
-// Date -> string
-function eta( end )
-{
-    pad = function( n ) { return ( n < 10 ) ? ( "0" + n ) : n; }
-    var date = new Date( end - Date.now() );
-    var m = date.getMinutes();
-    var s = date.getSeconds();
-    return ( m && ( typeof format === "undefined" || format ) ) ? m + ":" + pad( s ) : (date/1000).toFixed(1);
+    return ( m && ( _.isUndefined( format ) || format ) ) ? m + ":" + pad( s ) : (date/1000).toFixed(1);
 }
 
 // string, int, int, string, string -> ( f: float -> string )
-function line_gen( stream, format, width, car_char, road_char )
+function line_gen( stream, format, width, car_char, road_char, trail )
 {
     var bar = function( width, percent )
     {
 	var present = Math.round( percent * width );
 	var future = width - present;
-	return road_char.repeat( Math.max( 0, present-1 ) ) + car_char + road_char.repeat( future );
+	return ( trail ? car_char : road_char ).repeat( Math.max( 0, present-1 ) ) + car_char + road_char.repeat( future );
     };
 
     return function( start, end )
     {
 	var percent = ( Date.now() - start ) / ( end - start + 1 );
 	line_string = format
-	    .replace( ":elapsed", elapsed( start ) )
-	    .replace( ":eta", eta( end ) )
-	    .replace( ":percent", ( percent * 100 ).toFixed(1) )
-	    .replace( ":seconds", elapsed( start, false ) );
-	// todo why add 2 ?
+	    .replace( "#elapsed", format_time( Date.now() - start ) )
+	    .replace( "#eta", format_time( end - Date.now() ) )
+	    .replace( "#percent", ( percent * 100 ).toFixed(1) )
+	    .replace( "#seconds", format_time( Date.now() - start, false ) );
 	var availableSpace = Math.max( 0, stream.columns - line_string.length + 2 );
 	var bar_width = Math.min( width, availableSpace );
-	return Date.now() < end ? line_string.replace( ":bar", bar( bar_width, percent ) ) : false;
+	return Date.now() < end ? line_string.replace( "#bar", bar( bar_width, percent ) ) : false;
     };
 }
 
 // stream, string -> bool
-function render( stream, line, height )
+function render( stream, line )
 {
-    if ( stream.isTTY && line ) 
-    {
-	stream.moveCursor( 0, -1 );
-	stream.write( "\n" + line + "\n" );
-	stream.moveCursor( stream.columns, -1 );
-
-	return true
-	
-    } else {
-
-	return false;
-    }
-
+    // todo we don't have to move the cursor so much...
+    return ( stream.isTTY && line ) 
+	&& ( stream.moveCursor( 0, -1 )
+	     || !stream.write( "\n" + line + "\n" )
+	     || !stream.moveCursor( stream.columns, -1 ) );
 }
 
-Elapse( 60 );
