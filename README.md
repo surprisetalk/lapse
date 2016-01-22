@@ -29,9 +29,9 @@ $ node -e "require('repl').start({ignoreUndefined: true})"   # repl formatting
 
  |⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 60.0  
  
-> lapse( 60, { format: " [#bar] #percent% #secondss " } )
+> lapse( 60, { format: " #mtime [#bar] #percent% #secondss " } )
 
- [⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅|⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅] 100.0% 15.0s 
+ 00:47 [⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅|⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅] 100.0% 15.0s 
  
 > lapse( 60, { car_char: "✂ ", road_char: "-" } )
 
@@ -79,7 +79,7 @@ $ node -e "require('repl').start({ignoreUndefined: true})"   # repl formatting
   * defaults to `100`
 * `format` *string*
   * lapse line formatting: `tags` are replaced by dynamic values
-	* options are `#bar`, `#percent`, `#eta`, `#seconds`, and `#elapsed`
+	* options are `#bar`, `#percent`, `#eta`, `#seconds`, `#elapsed`, `#time`, and `#mtime`
   * defaults to ` #bar #eta `
 
 

@@ -53,14 +53,25 @@ function Lapse( duration, options )
     };
 }
 
+// int -> string
+function pad( n )
+{
+    return ( n < 10 ) ? ( "0" + n ) : n;
+}
+
 // Date, bool -> string
 function format_time( time, format )
 {
-    pad = function( n ) { return ( n < 10 ) ? ( "0" + n ) : n; }
     var date = new Date( time  );
     var m = date.getMinutes();
     var s = date.getSeconds();
     return ( m && ( _.isUndefined( format ) || format ) ) ? m + ":" + pad( s ) : (date/1000).toFixed(1);
+}
+
+// int -> int
+function clockify( n )
+{
+    return ( n + 11 ) % 12 + 1;
 }
 
 // string, int, int, string, string -> ( f: float -> string )
@@ -77,6 +88,8 @@ function line_gen( stream, format, width, car_char, road_char, trail )
     {
 	var percent = ( Date.now() - start ) / ( end - start + 1 );
 	line_string = format
+	    .replace( "#mtime", pad( start.getHours() ) + ":" + pad( start.getMinutes() ) )
+	    .replace( "#time", pad( clockify( start.getHours() ) ) + ":" + pad( start.getMinutes() ) )
 	    .replace( "#elapsed", format_time( Date.now() - start ) )
 	    .replace( "#eta", format_time( end - Date.now() ) )
 	    .replace( "#percent", ( percent * 100 ).toFixed(1) )
