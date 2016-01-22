@@ -3,7 +3,7 @@
 
 command-line progress bar
 
-![alt text](https://github.com/surprisetalk/elapse/elapse.png "cuttin' away")
+![alt text](https://raw.githubusercontent.com/surprisetalk/elapse/master/elapse.png "cuttin' away")
 
 
 ## install
