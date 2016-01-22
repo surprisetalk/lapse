@@ -88,8 +88,10 @@ function line_gen( stream, format, width, car_char, road_char, trail )
     {
 	var percent = ( Date.now() - start ) / ( end - start + 1 );
 	line_string = format
-	    .replace( "#mtime", pad( start.getHours() ) + ":" + pad( start.getMinutes() ) )
-	    .replace( "#time", pad( clockify( start.getHours() ) ) + ":" + pad( start.getMinutes() ) )
+	    .replace( "#time", pad( clockify( (new Date).getHours() ) ) + ":" + pad( (new Date).getMinutes() ) )
+	    .replace( "#mtime", pad( (new Date).getHours() ) + ":" + pad( (new Date).getMinutes() ) )
+	    .replace( "#start", pad( clockify( start.getHours() ) ) + ":" + pad( start.getMinutes() ) )
+	    .replace( "#mstart", pad( start.getHours() ) + ":" + pad( start.getMinutes() ) )
 	    .replace( "#elapsed", format_time( Date.now() - start ) )
 	    .replace( "#eta", format_time( end - Date.now() ) )
 	    .replace( "#percent", ( percent * 100 ).toFixed(1) )

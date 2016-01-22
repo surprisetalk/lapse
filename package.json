@@ -1,6 +1,6 @@
 {
   "name": "lapse",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "command-line progress bar",
   "main": "lapse.js",
   "scripts": {

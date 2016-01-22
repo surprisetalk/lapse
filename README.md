@@ -37,9 +37,9 @@ $ node -e "require('repl').start({ignoreUndefined: true})"   # repl formatting
 
  -------------------------✂ ------------------------- 30.0  
  
-> lapse( 60, { car_char: "\u001b[36m☂ \u001b[0m" } )
+> lapse( 600, { car_char: "\u001b[36m☂ \u001b[0m" } )
 
- ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅☂ ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 15.0  
+ ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅☂ ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 2:30  
 
 > lapse( 60, { trail: true } )
 
@@ -79,7 +79,15 @@ $ node -e "require('repl').start({ignoreUndefined: true})"   # repl formatting
   * defaults to `100`
 * `format` *string*
   * lapse line formatting: `tags` are replaced by dynamic values
-	* options are `#bar`, `#percent`, `#eta`, `#seconds`, `#elapsed`, `#time`, and `#mtime`
+	* `#bar` displays the bar animation 
+	* `#percent` displays completion percentage 
+	* `#eta` displays a formatted time to completion 
+	* `#seconds` displays number of elapsed seconds 
+	* `#elapsed` displays formatted elapsed time 
+	* `#time` displays current 12-hour time 
+	* `#mtime` displays current 24-hour time
+	* `#start` displays start time as 12-hour
+	* `#mstart` displays start time as 24-hour
   * defaults to ` #bar #eta `
 
 
