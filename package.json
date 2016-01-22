@@ -1,31 +1,31 @@
 {
-    "name": "lapse",
-    "version": "1.0.0",
-    "description": "command-line progress bar",
-    "main": "lapse.js",
-    "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-	"type": "git",
-	"url": "git+https://github.com/surprisetalk/lapse.git"
-    },
-    "keywords": [
-	"command",
-	"line",
-	"progress",
-	"bar",
-	"cli",
-	"lapse",
-	"lapse"
-    ],
-    "author": "Taylor Sarrafian",
-    "license": "ISC",
-    "bugs": {
-	"url": "https://github.com/surprisetalk/lapse/issues"
-    },
-    "homepage": "https://github.com/surprisetalk/lapse#readme",
-    "dependencies": {
-	"underscore": ">=1.8.3"
-    }
+  "name": "lapse",
+  "version": "1.0.1",
+  "description": "command-line progress bar",
+  "main": "lapse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surprisetalk/lapse.git"
+  },
+  "keywords": [
+    "command",
+    "line",
+    "progress",
+    "bar",
+    "cli",
+    "lapse",
+    "lapse"
+  ],
+  "author": "Taylor Sarrafian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surprisetalk/lapse/issues"
+  },
+  "homepage": "https://github.com/surprisetalk/lapse#readme",
+  "dependencies": {
+    "underscore": ">=1.8.3"
+  }
 }
