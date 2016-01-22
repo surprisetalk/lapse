@@ -1,5 +1,5 @@
 
-module.exports = Elapse;
+module.exports = Lapse;
 
 var _ = require('underscore');
 
@@ -24,7 +24,7 @@ function settings( options )
 }
 
 // int, obj -> 
-function Elapse( duration, options )
+function Lapse( duration, options )
 {
     // set the start and end times
     var start = new Date(); var end = new Date();

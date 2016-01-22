@@ -1,14 +1,14 @@
 {
-    "name": "elapse",
+    "name": "lapse",
     "version": "1.0.0",
     "description": "command-line progress bar",
-    "main": "elapse.js",
+    "main": "lapse.js",
     "scripts": {
 	"test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
 	"type": "git",
-	"url": "git+https://github.com/surprisetalk/elapse.git"
+	"url": "git+https://github.com/surprisetalk/lapse.git"
     },
     "keywords": [
 	"command",
@@ -16,14 +16,15 @@
 	"progress",
 	"bar",
 	"cli",
-	"elapse"
+	"lapse",
+	"lapse"
     ],
     "author": "Taylor Sarrafian",
     "license": "ISC",
     "bugs": {
-	"url": "https://github.com/surprisetalk/elapse/issues"
+	"url": "https://github.com/surprisetalk/lapse/issues"
     },
-    "homepage": "https://github.com/surprisetalk/elapse#readme",
+    "homepage": "https://github.com/surprisetalk/lapse#readme",
     "dependencies": {
 	"underscore": ">=1.8.3"
     }
