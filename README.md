@@ -8,7 +8,11 @@ command-line progress bar
 
 ## install
 
-{ npm package coming soon }
+``` bash
+
+$ npm install lapse
+
+```
 
 
 ## examples
