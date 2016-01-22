@@ -74,6 +74,12 @@ function clockify( n )
     return ( n + 11 ) % 12 + 1;
 }
 
+// string -> string
+function ansi_strip( s )
+{
+    return s.replace( /\u001b\[.+?m/g, "" );
+}
+
 // string, int, int, string, string -> ( f: float -> string )
 function line_gen( stream, format, width, car_char, road_char, trail )
 {
@@ -96,7 +102,7 @@ function line_gen( stream, format, width, car_char, road_char, trail )
 	    .replace( "#eta", format_time( end - Date.now() ) )
 	    .replace( "#percent", ( percent * 100 ).toFixed(1) )
 	    .replace( "#seconds", format_time( Date.now() - start, false ) );
-	var availableSpace = Math.max( 0, stream.columns - line_string.length + 2 );
+	var availableSpace = Math.max( 0, stream.columns - ansi_strip( line_string ).length + 2 );
 	var bar_width = Math.min( width, availableSpace );
 	return Date.now() < end ? line_string.replace( "#bar", bar( bar_width, percent ) ) : false;
     };
