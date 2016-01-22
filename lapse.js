@@ -30,6 +30,26 @@ function Lapse( duration, options )
     var start = new Date(); var end = new Date();
     end.setSeconds( start.getSeconds() + duration );
 
+    // listen for key presses
+    var paused = false;
+    var pause_start;
+    var stdin = process.stdin;
+    stdin.setRawMode( true );
+    stdin.resume();
+    stdin.setEncoding( "utf8" );
+    stdin.on( "data", function( key ) {
+	if( key === "\u0003" ) // ctrl-c 
+	    process.exit();
+	else if( key === " " )
+	{
+	    if( paused ) start = new Date( start.getTime() + Date.now() )
+	    if( paused ) end = new Date( end.getTime() + Date.now() )
+	    paused = !paused;
+	    if( paused ) start = new Date( start.getTime() - Date.now() )
+	    if( paused ) end = new Date( end.getTime() - Date.now() )
+	}
+    });
+
     // parse default settings
     var app = settings( options );
     app.stream.write( "\n" );
@@ -41,7 +61,7 @@ function Lapse( duration, options )
     var ticker = setInterval( update, 1000 / app.refresh_rate  );
     function update()
     {
-	if( !render( app.stream, line( start, end ) ) )
+	if( !paused && !render( app.stream, line( start, end ) ) )
 	{
 	    clearInterval( ticker );
 	    if( app.clear ) 

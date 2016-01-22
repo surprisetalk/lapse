@@ -51,6 +51,8 @@ $ node -e "require('repl').start({ignoreUndefined: true})"   # repl formatting
 
 ## use
 
+press space to pause/play
+
 ### options
 
 * `stream` *stream*
@@ -89,12 +91,6 @@ $ node -e "require('repl').start({ignoreUndefined: true})"   # repl formatting
 	* `#start` displays start time as 12-hour
 	* `#mstart` displays start time as 24-hour
   * defaults to ` #bar #eta `
-
-
-## coming soon
-
-* pretty colors
-* pause the timer with space bar
 
 
 ## acknowledgements
